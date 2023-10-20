@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeLayout extends StatefulWidget {
   static const String routeName = "HomeLayout";
@@ -13,20 +14,31 @@ class _HomeLayoutState extends State<HomeLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(
         title: Text("TO DO",
             style: TextStyle(color: Theme.of(context).colorScheme.secondary)),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _indexOfBtnNavBar,
-        onTap: (value) {
-          _indexOfBtnNavBar = value;
-          setState(() {});
-        },
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.list), label: ""),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: ""),
-        ],
+      bottomNavigationBar: BottomAppBar(
+        notchMargin: 6.sp,
+        child: BottomNavigationBar(
+          currentIndex: _indexOfBtnNavBar,
+          onTap: (value) {
+            _indexOfBtnNavBar = value;
+            setState(() {});
+          },
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.list), label: ""),
+            BottomNavigationBarItem(icon: Icon(Icons.settings), label: ""),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
     );
   }
