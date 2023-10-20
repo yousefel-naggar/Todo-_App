@@ -21,10 +21,26 @@ class MyTheme {
           backgroundColor: Color(0xFF5D9CEC),
           titleTextStyle: GoogleFonts.poppins(fontSize: 22.sp)),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Color(0xFF5D9CEC),
         unselectedItemColor: Colors.grey,
         showSelectedLabels: false,
         showUnselectedLabels: false,
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: Color(0xFF5D9CEC),
+          iconSize: 23.sp,
+          shape: CircleBorder(
+            side: BorderSide(
+              color: Colors.white,
+              width: 3.sp,
+            ),
+          )),
+      bottomAppBarTheme: BottomAppBarTheme(
+        color: Colors.white,
+        elevation: 0,
+        shape: CircularNotchedRectangle(),
       ));
 }
