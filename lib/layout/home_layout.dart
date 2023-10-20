@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:todo/screens/settings/settings_tab.dart';
+
+import '../screens/tasks/tasks_tab.dart';
 
 class HomeLayout extends StatefulWidget {
   static const String routeName = "HomeLayout";
@@ -10,6 +13,7 @@ class HomeLayout extends StatefulWidget {
 
 class _HomeLayoutState extends State<HomeLayout> {
   int _indexOfBtnNavBar = 0;
+  List<Widget>tabs = [TasksTab(),SettingsTab()];
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +44,7 @@ class _HomeLayoutState extends State<HomeLayout> {
           color: Colors.white,
         ),
       ),
+      body: tabs[_indexOfBtnNavBar],
     );
   }
 }
