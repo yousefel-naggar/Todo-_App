@@ -19,7 +19,12 @@ class MyTheme {
       scaffoldBackgroundColor: Color(0xFFDFECDB),
       appBarTheme: AppBarTheme(
           backgroundColor: Color(0xFF5D9CEC),
-          titleTextStyle: GoogleFonts.poppins(
-            fontSize: 22.sp
-          )));
+          titleTextStyle: GoogleFonts.poppins(fontSize: 22.sp)),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Color(0xFF5D9CEC),
+        unselectedItemColor: Colors.grey,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+      ));
 }
