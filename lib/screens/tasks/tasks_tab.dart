@@ -1,7 +1,9 @@
 import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:todo/models/task_model.dart';
 import 'package:todo/screens/tasks/task_item.dart';
+import 'package:todo/shared/firebase/firebase_functions.dart';
 
 class TasksTab extends StatelessWidget {
   const TasksTab({super.key});
@@ -24,13 +26,25 @@ class TasksTab extends StatelessWidget {
           selectableDayPredicate: (date) => true,
           locale: 'en',
         ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: 12,
-            itemBuilder: (context, index) {
-              return TaskItem();
-            },
-          ),
+        FutureBuilder(
+          future: FirebaseFunctions.getTasks(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.hasError) {
+              return Text("Somthing went wrong");
+            }
+            List<TaskModel> tasks =
+                snapshot.data!.docs.map((e) => e.data()).toList()??[];
+            return Expanded(
+              child: ListView.builder(itemCount: tasks.length,
+                itemBuilder: (context, index) {
+                  return TaskItem(taskModel: tasks[index]);
+                },
+              ),
+            );
+          },
         )
       ],
     );
