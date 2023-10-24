@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:todo/models/task_model.dart';
+import 'package:todo/shared/firebase/firebase_functions.dart';
 
 class TaskItem extends StatelessWidget {
   TaskModel taskModel;
@@ -16,23 +17,28 @@ class TaskItem extends StatelessWidget {
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(13.r)),
         child: Slidable(
-          startActionPane: ActionPane(motion: BehindMotion(), children: [
-            SlidableAction(
-              onPressed: (context) {},
-              label: "Delete",
-              icon: Icons.delete,
-              backgroundColor: Colors.red,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(13.r),
-                  bottomLeft: Radius.circular(13.r)),
-            ),
-            SlidableAction(
-              onPressed: (context) {},
-              label: "Edit",
-              icon: Icons.edit,
-              backgroundColor:Theme.of(context).colorScheme.primary,
-            ),
-          ]),
+          startActionPane: ActionPane(
+            motion: BehindMotion(),
+            children: [
+              SlidableAction(
+                onPressed: (context) {
+                  FirebaseFunctions.deleteTask(taskModel);
+                },
+                label: "Delete",
+                icon: Icons.delete,
+                backgroundColor: Colors.red,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(13.r),
+                    bottomLeft: Radius.circular(13.r)),
+              ),
+              SlidableAction(
+                onPressed: (context) {},
+                label: "Edit",
+                icon: Icons.edit,
+                backgroundColor: Theme.of(context).colorScheme.primary,
+              ),
+            ],
+          ),
           child: Padding(
             padding: REdgeInsets.all(12),
             child: Row(
