@@ -23,10 +23,10 @@ class FirebaseFunctions {
     docRef.set(taskModel);
   }
 
-   static Future<QuerySnapshot<TaskModel>> getTasks(DateTime dateTime) {
+   static Stream<QuerySnapshot<TaskModel>> getTasks(DateTime dateTime) {
     return getTaskCollection()
         .where("date",
             isEqualTo: DateUtils.dateOnly(dateTime).millisecondsSinceEpoch)
-        .get();
+        .snapshots();
   }
 }

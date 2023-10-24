@@ -35,8 +35,8 @@ class _TasksTabState extends State<TasksTab> {
           selectableDayPredicate: (date) => true,
           locale: 'en',
         ),
-        FutureBuilder(
-          future: FirebaseFunctions.getTasks(selectedDate),
+        StreamBuilder(
+          stream: FirebaseFunctions.getTasks(selectedDate),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
