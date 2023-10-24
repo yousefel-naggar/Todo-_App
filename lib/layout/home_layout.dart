@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo/screens/settings/settings_tab.dart';
+import 'package:todo/screens/tasks/add_task_bottom_sheet.dart';
 
 import '../screens/tasks/tasks_tab.dart';
 
@@ -13,7 +14,7 @@ class HomeLayout extends StatefulWidget {
 
 class _HomeLayoutState extends State<HomeLayout> {
   int _indexOfBtnNavBar = 0;
-  List<Widget>tabs = [TasksTab(),SettingsTab()];
+  List<Widget> tabs = [TasksTab(), SettingsTab()];
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +40,29 @@ class _HomeLayoutState extends State<HomeLayout> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showBottomSheet();
+        },
         child: Icon(
           Icons.add,
           color: Colors.white,
         ),
       ),
       body: tabs[_indexOfBtnNavBar],
+    );
+  }
+
+  showBottomSheet() {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding: REdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: AddTaskBottomSheet(),
+        );
+      },
     );
   }
 }
