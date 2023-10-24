@@ -26,6 +26,12 @@ class FirebaseFunctions {
   static deleteTask(TaskModel taskModel){
     getTaskCollection().doc(taskModel.id).delete();
   }
+  static updateTaskStatus(TaskModel taskModel){
+    getTaskCollection().doc(taskModel.id).update(
+      taskModel.toJson()
+    );
+  }
+
    static Stream<QuerySnapshot<TaskModel>> getTasks(DateTime dateTime) {
     return getTaskCollection()
         .where("date",
