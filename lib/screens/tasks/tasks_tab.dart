@@ -5,18 +5,27 @@ import 'package:todo/models/task_model.dart';
 import 'package:todo/screens/tasks/task_item.dart';
 import 'package:todo/shared/firebase/firebase_functions.dart';
 
-class TasksTab extends StatelessWidget {
+class TasksTab extends StatefulWidget {
   const TasksTab({super.key});
+
+  @override
+  State<TasksTab> createState() => _TasksTabState();
+}
+
+class _TasksTabState extends State<TasksTab> {
+  DateTime selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         CalendarTimeline(
-          initialDate: DateTime.now(),
+          initialDate: selectedDate,
           firstDate: DateTime.now().subtract(Duration(days: 365)),
           lastDate: DateTime.now().add(Duration(days: 365)),
-          onDateSelected: (date) => print(date),
+          onDateSelected: (date) => setState(() {
+            selectedDate = date;
+          }),
           leftMargin: 20.w,
           monthColor: Theme.of(context).colorScheme.primary,
           dayColor: Theme.of(context).colorScheme.primary.withOpacity(0.7),
@@ -27,7 +36,7 @@ class TasksTab extends StatelessWidget {
           locale: 'en',
         ),
         FutureBuilder(
-          future: FirebaseFunctions.getTasks(),
+          future: FirebaseFunctions.getTasks(selectedDate),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
@@ -36,9 +45,10 @@ class TasksTab extends StatelessWidget {
               return Text("Somthing went wrong");
             }
             List<TaskModel> tasks =
-                snapshot.data!.docs.map((e) => e.data()).toList()??[];
+                snapshot.data!.docs.map((e) => e.data()).toList();
             return Expanded(
-              child: ListView.builder(itemCount: tasks.length,
+              child: ListView.builder(
+                itemCount: tasks.length,
                 itemBuilder: (context, index) {
                   return TaskItem(taskModel: tasks[index]);
                 },
