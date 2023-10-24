@@ -22,7 +22,7 @@ class FirebaseFunctions {
     docRef.set(taskModel);
   }
 
-  Future<QuerySnapshot<TaskModel>> getTasks(){
+  static Future<QuerySnapshot<TaskModel>> getTasks(){
     return getTaskCollection().get();
   }
 }
