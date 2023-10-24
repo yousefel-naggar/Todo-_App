@@ -21,4 +21,8 @@ class FirebaseFunctions {
     taskModel.id = docRef.id;
     docRef.set(taskModel);
   }
+
+  Future<QuerySnapshot<TaskModel>> getTasks(){
+    return getTaskCollection().get();
+  }
 }
