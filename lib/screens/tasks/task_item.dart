@@ -4,7 +4,8 @@ import 'package:todo/models/task_model.dart';
 
 class TaskItem extends StatelessWidget {
   TaskModel taskModel;
-  TaskItem({required this.taskModel,super.key});
+
+  TaskItem({required this.taskModel, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,16 +38,25 @@ class TaskItem extends StatelessWidget {
                   SizedBox(
                     height: 2.h,
                   ),
-                  Text(taskModel.taskDetails, style: TextStyle(fontSize: 15.sp)),
+                  Text(taskModel.taskDetails,
+                      style: TextStyle(fontSize: 15.sp)),
                 ],
               ),
               Spacer(),
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.r),
+                      color: Theme.of(context).colorScheme.primary),
+                  height: 30.h,
+                  width: 50.w,
+                  child: Icon(
                     Icons.done,
-                    size: 25.sp,
-                  ))
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                ),
+              )
             ],
           ),
         ),
