@@ -45,7 +45,9 @@ class TaskItem extends StatelessWidget {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
+                      color: taskModel.isDone == false
+                          ? Theme.of(context).colorScheme.primary
+                          : Color(0xFF61E757),
                       borderRadius: BorderRadius.circular(12.r)),
                   height: 80.h,
                   width: 5.w,
@@ -58,7 +60,11 @@ class TaskItem extends StatelessWidget {
                   children: [
                     Text(
                       taskModel.taskTittle,
-                      style: TextStyle(fontSize: 18.sp),
+                      style: TextStyle(
+                          fontSize: 18.sp,
+                          color: taskModel.isDone == false
+                              ? Theme.of(context).colorScheme.onPrimary
+                              : Color(0xFF61E757)),
                     ),
                     SizedBox(
                       height: 2.h,
@@ -68,20 +74,31 @@ class TaskItem extends StatelessWidget {
                   ],
                 ),
                 Spacer(),
-                InkWell(
-                  onTap: () {},
-                  child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.r),
-                        color: Theme.of(context).colorScheme.primary),
-                    height: 30.h,
-                    width: 50.w,
-                    child: Icon(
-                      Icons.done,
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
-                  ),
-                )
+                taskModel.isDone == false
+                    ? InkWell(
+                        onTap: () {
+                          taskModel.isDone = true;
+                          FirebaseFunctions.updateTaskStatus(taskModel);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.r),
+                              color: Theme.of(context).colorScheme.primary),
+                          height: 35.h,
+                          width: 60.w,
+                          child: Icon(
+                            Icons.done,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                        ),
+                      )
+                    : Text(
+                        "Done",
+                        style: TextStyle(
+                            color: Color(0xFF61E757),
+                            fontSize: 24.sp,
+                            fontWeight: FontWeight.bold),
+                      )
               ],
             ),
           ),
